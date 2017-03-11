@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EasyReflect.iml" filepath="$PROJECT_DIR$/EasyReflect.iml" />
-      <module fileurl="file://$PROJECT_DIR$/EasyReflect.iml" filepath="$PROJECT_DIR$/EasyReflect.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/easyreflect/easyreflect.iml" filepath="$PROJECT_DIR$/easyreflect/easyreflect.iml" />
       <module fileurl="file://$PROJECT_DIR$/easyreflect/easyreflect.iml" filepath="$PROJECT_DIR$/easyreflect/easyreflect.iml" />
     </modules>
   </component>
