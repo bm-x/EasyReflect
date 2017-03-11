@@ -1,5 +1,7 @@
 package com.okfunc.easyreflect;
 
+import java.util.Objects;
+
 /**
  * EasyReflect. 一个简单，快速使用反射的库
  * <p>
@@ -22,6 +24,10 @@ public class ER {
 
     public static void call(Object target, String method, Object... args) {
         EasyReflect.call(target, method, args);
+    }
+
+    public static Object get(Object target,String f) {
+        return EasyReflect.field(target, f);
     }
 
     /**

@@ -11,13 +11,14 @@ import java.util.*;
 public class ClassInfo {
 
     private Class mCls;
-    private Class mParent;
+    private Class mMethodTier;
     private List<Method> mMethods = new ArrayList<>();
     private HashMap<String, List<MethodInfo>> mMethodSet = new HashMap<>();
+    private HashMap<String, Field> mFieldSet = new HashMap<>();
 
     ClassInfo(Class cls) {
         mCls = cls;
-        mParent = mCls;
+        mMethodTier = mCls;
     }
 
     private List<MethodInfo> parseMethod(List<Method> methods, String name) {
@@ -42,10 +43,10 @@ public class ClassInfo {
         return null;
     }
 
-    private Method depthSeach(String name, Object... args) {
-        if (mParent == null) return null;
+    private Method methodDepthSeach(String name, Object... args) {
+        if (mMethodTier == null) return null;
 
-        Method[] methods = mParent.getDeclaredMethods();
+        Method[] methods = mMethodTier.getDeclaredMethods();
 
         ArrayList<Method> list = new ArrayList<>(methods.length);
 
@@ -55,7 +56,7 @@ public class ClassInfo {
 
         List<MethodInfo> mis = parseMethod(list, name);
 
-        mParent = mParent.getSuperclass();
+        mMethodTier = mMethodTier.getSuperclass();
         mMethods.addAll(list);
         mMethodSet.get(name).addAll(mis);
 
@@ -65,8 +66,9 @@ public class ClassInfo {
             return mi.method();
         }
 
-        return depthSeach(name, args);
+        return methodDepthSeach(name, args);
     }
+
 
     Method findMethod(String name, Object... args) {
         List<MethodInfo> methods = mMethodSet.get(name);
@@ -81,10 +83,21 @@ public class ClassInfo {
             if (mi != null) return mi.method();
         }
 
-        return depthSeach(name, args);
+        return methodDepthSeach(name, args);
     }
 
-    Field findField(String name){
-        return null;
+    Field findField(String name) {
+        Field field = mFieldSet.get(name);
+
+        if (field == null) {
+            try {
+                field = mCls.getField(name);
+                mFieldSet.put(name, field);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return field;
     }
 }
