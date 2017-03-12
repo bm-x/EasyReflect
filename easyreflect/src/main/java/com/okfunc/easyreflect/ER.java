@@ -27,7 +27,7 @@ public class ER {
     }
 
     public static Object get(Object target,String f) {
-        return EasyReflect.field(target, f);
+        return EasyReflect.get(target, f);
     }
 
     /**

@@ -48,6 +48,7 @@ public class ClassInfo {
 
         Method[] methods = mMethodTier.getDeclaredMethods();
 
+
         ArrayList<Method> list = new ArrayList<>(methods.length);
 
         for (Method m : methods) {
@@ -90,12 +91,19 @@ public class ClassInfo {
         Field field = mFieldSet.get(name);
 
         if (field == null) {
-            try {
-                field = mCls.getField(name);
+            Class cls = mCls;
+            while (cls != null) {
+                try {
+                    field = cls.getDeclaredField(name);
+                } catch (Exception e) {}
+                if (field == null) {
+                    cls = cls.getSuperclass();
+                    continue;
+                }
                 mFieldSet.put(name, field);
-            } catch (Exception e) {
-                e.printStackTrace();
+                break;
             }
+
         }
 
         return field;

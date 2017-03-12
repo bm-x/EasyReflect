@@ -35,11 +35,25 @@ public class EasyReflect {
         return null;
     }
 
-    public static Field field(Object target, String fieldName) {
+    static Object get(Object target, String fieldName) {
+        Field field = field(target, fieldName);
+
+        if (field != null) {
+            try {
+                field.setAccessible(true);
+                return field.get(target);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    static Field field(Object target, String fieldName) {
         return getTargetClassInfo(target).findField(fieldName);
     }
 
-    public static Method method(Object target, String methodName, Object... args) {
+    static Method method(Object target, String methodName, Object... args) {
         return getTargetClassInfo(target).findMethod(methodName, args);
     }
 
